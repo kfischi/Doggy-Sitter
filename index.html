@@ -2,109 +2,536 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>מיקה - דוגיסיטר בגבעת חיים</title>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>מיקה – דוגיסיטר בגבעת חיים</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Varela+Round&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Assistant', sans-serif;
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+        *, *::before, *::after {
+            box-sizing: border-box;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
         }
-        .card {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            max-width: 400px;
+
+        :root {
+            --sand:     #fdf3e3;
+            --cream:    #fffbf4;
+            --warm:     #f5e6cc;
+            --amber:    #e8924a;
+            --amber-dk: #c9712e;
+            --brown:    #6b3f1a;
+            --sage:     #7aab7a;
+            --sage-lt:  #e8f5e9;
+            --sky:      #d0eaf8;
+            --sky-dk:   #4a9fc4;
+            --wa:       #25D366;
+            --wa-dk:    #1aab52;
+            --text:     #3a2010;
+            --muted:    #9a7b60;
+        }
+
+        html, body {
+            height: 100%;
             width: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Nunito', 'Varela Round', sans-serif;
+            min-height: 100dvh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            background: var(--sand);
+            position: relative;
+            padding: 0;
+        }
+
+        /* ── Decorative background ── */
+        .bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
             overflow: hidden;
-            text-align: center;
-            border: 4px solid #fff;
         }
-        .banner-img {
+
+        .bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 20% 10%, #ffe0b2 0%, transparent 55%),
+                radial-gradient(ellipse 60% 50% at 80% 80%, #d4ecd1 0%, transparent 55%),
+                radial-gradient(ellipse 50% 40% at 50% 50%, #fdf3e3 0%, transparent 70%);
+        }
+
+        /* Floating paw prints background */
+        .paw-bg {
+            position: absolute;
+            inset: 0;
+            opacity: 0.06;
+            font-size: 48px;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 48px;
+            padding: 24px;
+            pointer-events: none;
+            transform: rotate(-15deg) scale(1.3);
+        }
+
+        /* ── Card ── */
+        .card {
+            position: relative;
+            z-index: 2;
             width: 100%;
-            height: auto;
+            max-width: 460px;
+            margin: 24px auto 48px;
+            display: flex;
+            flex-direction: column;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow:
+                0 2px 0 rgba(255,255,255,0.9) inset,
+                0 16px 48px rgba(107,63,26,0.18),
+                0 4px 12px rgba(107,63,26,0.10);
+            border: 2px solid rgba(255,255,255,0.85);
+        }
+
+        /* ── Hero ── */
+        .hero {
+            position: relative;
+            height: 230px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 25%;
             display: block;
+            transition: transform 6s ease;
         }
-        .content {
-            padding: 25px;
-            background: linear-gradient(180deg, #fff 0%, #f9f9f9 100%);
+
+        .hero img:hover { transform: scale(1.04); }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(253,243,227,0) 40%,
+                rgba(253,243,227,0.95) 100%
+            );
         }
-        h1 {
-            color: #2c3e50;
-            margin: 0 0 10px;
-            font-size: 24px;
-        }
-        p {
-            color: #555;
-            font-size: 18px;
-            line-height: 1.5;
-            margin: 0 0 20px;
-        }
-        .price-tag {
-            background: #e1f5fe;
-            color: #0288d1;
-            display: inline-block;
-            padding: 8px 20px;
+
+        .location-badge {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(8px);
             border-radius: 50px;
-            font-weight: bold;
-            margin-bottom: 25px;
-            font-size: 20px;
-            border: 2px dashed #0288d1;
+            padding: 5px 12px;
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--brown);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 2px 10px rgba(107,63,26,0.15);
+            border: 1.5px solid rgba(255,255,255,0.9);
         }
-        .whatsapp-btn {
+
+        /* ── Paw divider ── */
+        .paw-divider {
+            background: linear-gradient(90deg, var(--warm), #fff7e6, var(--warm));
+            padding: 6px 0;
+            text-align: center;
+            font-size: 15px;
+            letter-spacing: 6px;
+            flex-shrink: 0;
+        }
+
+        /* ── Body ── */
+        .body {
+            background: var(--cream);
+            padding: 26px 24px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+
+        /* Avatar ring */
+        .avatar-ring {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--amber), #f7c56c);
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #25D366;
+            font-size: 34px;
+            margin-top: -52px;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 16px rgba(232,146,74,0.4);
+            border: 3px solid white;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--brown);
+            text-align: center;
+            line-height: 1.3;
+            margin-bottom: 10px;
+            letter-spacing: -0.3px;
+        }
+
+        h1 em {
+            font-style: normal;
+            color: var(--amber);
+        }
+
+        .description {
+            color: #5a3e28;
+            font-size: 16px;
+            line-height: 1.65;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .description strong {
+            color: var(--amber-dk);
+            font-weight: 800;
+        }
+
+        /* ── Chips ── */
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 7px 14px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            white-space: nowrap;
+        }
+
+        .chip-blue {
+            background: var(--sky);
+            color: var(--sky-dk);
+            border: 1.5px solid #a8d8f0;
+        }
+
+        .chip-green {
+            background: var(--sage-lt);
+            color: #2e7d32;
+            border: 1.5px solid #a5d6a7;
+        }
+
+        .chip-amber {
+            background: #fff3e0;
+            color: #bf6a1a;
+            border: 1.5px solid #ffcc80;
+        }
+
+        /* ── Price ── */
+        .price-wrap {
+            margin-bottom: 22px;
+        }
+
+        .price {
+            background: linear-gradient(135deg, #fff8e1, #ffe0b2);
+            border: 2px dashed var(--amber);
+            border-radius: 16px;
+            padding: 12px 26px;
+            text-align: center;
+        }
+
+        .price-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--muted);
+            margin-bottom: 2px;
+        }
+
+        .price-amount {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--amber-dk);
+            line-height: 1;
+        }
+
+        .price-sub {
+            font-size: 12px;
+            color: var(--muted);
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        /* ── WhatsApp button ── */
+        .wa-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--wa), var(--wa-dk));
             color: white;
             text-decoration: none;
-            padding: 15px;
-            border-radius: 50px;
-            font-size: 20px;
-            font-weight: bold;
-            transition: transform 0.2s, background-color 0.2s;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            padding: 16px 24px;
+            min-height: 56px;
+            border-radius: 18px;
+            font-size: 18px;
+            font-weight: 900;
+            width: 100%;
+            letter-spacing: 0.3px;
+            box-shadow: 0 8px 24px rgba(37,211,102,0.38);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            user-select: none;
+            -webkit-user-select: none;
+            margin-bottom: 12px;
+            position: relative;
+            overflow: hidden;
         }
-        .whatsapp-btn:hover {
-            background-color: #1ebe57;
-            transform: scale(1.02);
+
+        .wa-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 50%;
+            background: rgba(255,255,255,0.12);
+            border-radius: 18px 18px 100% 100% / 18px 18px 40% 40%;
         }
-        .whatsapp-btn img {
-            width: 25px;
-            margin-left: 10px;
+
+        .wa-btn:active {
+            transform: scale(0.97);
+            box-shadow: 0 4px 14px rgba(37,211,102,0.3);
         }
+
+        .wa-btn svg {
+            width: 26px;
+            height: 26px;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .wa-btn span { position: relative; }
+
+        /* ── Footer ── */
         .footer {
-            margin-top: 15px;
-            font-size: 14px;
-            color: #888;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--muted);
+            flex-wrap: wrap;
+        }
+
+        .footer a {
+            color: var(--amber-dk);
+            text-decoration: none;
+            font-weight: 700;
+            padding: 4px 2px;
+        }
+
+        .footer a:hover { text-decoration: underline; }
+
+        .sep { color: #d5b89a; }
+
+        /* ── Trust strip ── */
+        .trust {
+            background: linear-gradient(135deg, #f9f2e8, #edf7ed);
+            border-top: 1.5px solid rgba(165,200,165,0.3);
+            border-bottom: 1.5px solid rgba(165,200,165,0.3);
+            padding: 14px 24px;
+            margin: 20px 0;
+            width: calc(100% + 48px);
+            margin-left: -24px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .trust-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .trust-icon { font-size: 20px; }
+
+        .trust-text {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--brown);
+            text-align: center;
+        }
+
+        /* ── Pulse (desktop) ── */
+        @media (hover: hover) {
+            @keyframes pulse-wa {
+                0%, 100% { box-shadow: 0 8px 24px rgba(37,211,102,0.38); }
+                50%       { box-shadow: 0 8px 36px rgba(37,211,102,0.62); }
+            }
+            .wa-btn { animation: pulse-wa 2.5s ease-in-out infinite; }
+            .wa-btn:hover {
+                animation: none;
+                transform: translateY(-2px) scale(1.02);
+                box-shadow: 0 12px 32px rgba(37,211,102,0.52);
+            }
+        }
+
+        /* ── Entrance animations ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .card { animation: fadeUp 0.55s cubic-bezier(0.22,1,0.36,1) both; }
+        .avatar-ring { animation: fadeUp 0.55s 0.1s cubic-bezier(0.22,1,0.36,1) both; }
+        h1 { animation: fadeUp 0.5s 0.18s cubic-bezier(0.22,1,0.36,1) both; }
+        .description { animation: fadeUp 0.5s 0.25s cubic-bezier(0.22,1,0.36,1) both; }
+        .chips { animation: fadeUp 0.5s 0.32s cubic-bezier(0.22,1,0.36,1) both; }
+        .trust { animation: fadeUp 0.5s 0.38s cubic-bezier(0.22,1,0.36,1) both; }
+        .price-wrap { animation: fadeUp 0.5s 0.44s cubic-bezier(0.22,1,0.36,1) both; }
+        .wa-btn { animation-delay: 0.5s !important; }
+        .footer { animation: fadeUp 0.5s 0.56s cubic-bezier(0.22,1,0.36,1) both; }
+
+        /* ── Small phones ── */
+        @media (max-width: 360px) {
+            .card { margin: 12px auto 32px; }
+            h1 { font-size: 21px; }
+            .description { font-size: 15px; }
+            .body { padding: 22px 18px 26px; }
+            .hero { height: 190px; }
+        }
+
+        /* ── Landscape ── */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .hero { height: 130px; }
+            .body { padding: 14px 20px 20px; }
+            .trust { margin: 14px 0; }
         }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <img src="https://the-artists.co.il/wp-content/uploads/2024/02/mika-dogs.jpg" alt="מיקה דוגיסיטר" class="banner-img">
-    
-    <div class="content">
-        <h1>מחפשים דוגיסיטר לכלב?</h1>
-        <p>היי, אני מיקה! אשמח להוציא את הכלב שלכם לטיול מהנה, אחראי ומלא באהבה ברחבי הקיבוץ.</p>
-        
-        <div class="price-tag">45 ש"ח לטיול</div>
-
-        <a href="https://wa.me/972527568854?text=%D7%9ה%D7%99%D7%99%20%D7%9E%D7%99%D7%A7%D7%94%2C%20%D7%A0%D7%A9%D7%9E%D7%97%20%D7%9C%D7%AA%D7%90%D7%9D%20%D7%94%D7%95%D7%92%D7%99%D7%A1%D7%99%D7%98%D7%A8" class="whatsapp-btn">
-            שלחו לי הודעה בוואטסאפ
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA">
-        </a>
-        
-        <div class="footer">גבעת חיים איחוד | 052-7568854</div>
+<!-- Background -->
+<div class="bg">
+    <div class="paw-bg" aria-hidden="true">
+        <!-- rows of paw emojis -->
+        <span>🐾</span><span>🐾</span><span>🐾</span><span>🐾</span><span>🐾</span><span>🐾</span>
+        <span>🐾</span><span>🐾</span><span>🐾</span><span>🐾</span><span>🐾</span><span>🐾</span>
+        <span>🐾</span><span>🐾</span><span>🐾</span><span>🐾</span><span>🐾</span><span>🐾</span>
+        <span>🐾</span><span>🐾</span><span>🐾</span><span>🐾</span><span>🐾</span><span>🐾</span>
+        <span>🐾</span><span>🐾</span><span>🐾</span><span>🐾</span><span>🐾</span><span>🐾</span>
+        <span>🐾</span><span>🐾</span><span>🐾</span><span>🐾</span><span>🐾</span><span>🐾</span>
     </div>
 </div>
+
+<!-- Card -->
+<div class="card">
+
+    <!-- Hero -->
+    <div class="hero">
+        <img
+            src="https://the-artists.co.il/wp-content/uploads/2024/02/mika-dogs.jpg"
+            alt="מיקה דוגיסיטר עם כלבים"
+            loading="eager"
+            onerror="this.src=''; this.alt=''"
+        >
+        <div class="hero-overlay"></div>
+        <div class="location-badge">📍 גבעת חיים איחוד</div>
+    </div>
+
+    <!-- Paw divider -->
+    <div class="paw-divider" aria-hidden="true">🐾 &nbsp; 🐾 &nbsp; 🐾 &nbsp; 🐾 &nbsp; 🐾</div>
+
+    <!-- Body -->
+    <div class="body">
+
+        <div class="avatar-ring" aria-hidden="true">🐕</div>
+
+        <h1>מחפשים <em>דוגיסיטר</em><br>לכלב שלכם?</h1>
+
+        <p class="description">
+            היי, אני <strong>מיקה</strong>! אשמח להוציא את הכלב שלכם לטיול מהנה, אחראית ומלאת אהבה ברחבי הקיבוץ.
+        </p>
+
+        <!-- Trust strip -->
+        <div class="trust" role="list">
+            <div class="trust-item" role="listitem">
+                <span class="trust-icon">❤️</span>
+                <span class="trust-text">אוהבת כלבים</span>
+            </div>
+            <div class="trust-item" role="listitem">
+                <span class="trust-icon">🏡</span>
+                <span class="trust-text">מכירה את הקיבוץ</span>
+            </div>
+            <div class="trust-item" role="listitem">
+                <span class="trust-icon">⭐</span>
+                <span class="trust-text">אמינה ואחראית</span>
+            </div>
+            <div class="trust-item" role="listitem">
+                <span class="trust-icon">📱</span>
+                <span class="trust-text">זמינה בוואטסאפ</span>
+            </div>
+        </div>
+
+        <!-- Price -->
+        <div class="price-wrap">
+            <div class="price">
+                <div class="price-label">מחיר לטיול</div>
+                <div class="price-amount">45 ₪</div>
+                <div class="price-sub">ברחבי הקיבוץ</div>
+            </div>
+        </div>
+
+        <!-- WhatsApp CTA -->
+        <a
+            href="https://wa.me/972527568854?text=%D7%94%D7%99%D7%99%20%D7%9E%D7%99%D7%A7%D7%94%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%A9%D7%AA%D7%98%D7%99%D7%99%D7%9C%D7%99%20%D7%A2%D7%9D%20%D7%94%D7%9B%D7%9C%D7%91%2F%D7%94%20%D7%A9%D7%9C%D7%A0%D7%95"
+            class="wa-btn"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="שלחו הודעה למיקה בוואטסאפ"
+        >
+            <svg viewBox="0 0 32 32" fill="white" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M16.004 2.667C8.636 2.667 2.667 8.636 2.667 16c0 2.365.633 4.664 1.836 6.667L2.667 29.333l6.833-1.793A13.24 13.24 0 0 0 16.004 29.333C23.37 29.333 29.333 23.37 29.333 16c0-7.364-5.963-13.333-13.329-13.333zm0 24C13.9 26.667 11.85 26.04 10.1 24.9l-.43-.27-4.056 1.063 1.08-3.95-.28-.443C5.217 19.5 4.667 17.78 4.667 16c0-6.25 5.087-11.333 11.337-11.333S27.333 9.75 27.333 16 22.25 26.667 16.004 26.667zm6.21-8.49c-.34-.17-2.013-1-2.327-1.11-.313-.12-.54-.17-.77.17-.226.34-.876 1.11-1.073 1.34-.196.22-.393.25-.733.08-.34-.17-1.437-.53-2.737-1.69-1.01-.9-1.693-2.01-1.89-2.35-.196-.34-.02-.52.148-.69.152-.15.34-.39.51-.59.17-.19.226-.33.34-.55.113-.22.056-.42-.028-.59-.085-.17-.77-1.86-1.055-2.55-.277-.67-.56-.58-.77-.59l-.657-.01c-.226 0-.593.085-.903.42-.31.34-1.18 1.15-1.18 2.81 0 1.66 1.207 3.26 1.377 3.49.17.22 2.377 3.63 5.76 5.09.806.35 1.434.56 1.924.72.808.26 1.544.22 2.126.13.648-.1 2.013-.82 2.297-1.61.283-.79.283-1.47.196-1.61-.083-.15-.31-.23-.65-.4z"/>
+            </svg>
+            <span>שלחו לי הודעה בוואטסאפ</span>
+        </a>
+
+        <!-- Footer -->
+        <div class="footer">
+            <span>📞</span>
+            <a href="tel:0527568854">052-756-8854</a>
+            <span class="sep">·</span>
+            <span>גבעת חיים איחוד</span>
+        </div>
+
+    </div><!-- /body -->
+</div><!-- /card -->
 
 </body>
 </html>
